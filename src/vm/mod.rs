@@ -1,2 +1,3 @@
-pub mod core;
-pub mod interpreter;
+// crate::vm
+
+pub mod memory;
