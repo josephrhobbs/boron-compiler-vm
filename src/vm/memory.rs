@@ -10,10 +10,9 @@
 
 // Memory map:
 //     0x00 00 00 00 to 0x03 FF FF FF -> program storage
-//     0x04 00 00 00 to 0x04 00 FF FF -> built-in subroutines
-//     0x04 01 00 00 to 0x04 01 FF FF -> output buffer
-//     0x04 02 00 00 to 0x04 02 FF FF -> input buffer
-//     0x04 03 00 00 to 0x13 FF FF FF -> virtual random access memory
+//     0x04 00 00 00 to 0x04 00 FF FF -> output buffer
+//     0x04 01 00 00 to 0x04 01 FF FF -> input buffer
+//     0x04 02 00 00 to 0x13 FF FF FF -> virtual random access memory
 
 // Register map:
 //     0x0 to 0xE -> general-purpose registers
@@ -38,9 +37,6 @@ impl VirtualMachine {
     pub fn load_program(&mut self, program: Vec<u8>) {
         let mut new_program = &program;
         self.memory.splice(0..program.len(), new_program.iter().cloned());
-    }
-    pub fn load_builtins(&mut self) {
-
     }
     pub fn get(&mut self, pointer: u32) -> u8 {
         self.memory[pointer as usize]
