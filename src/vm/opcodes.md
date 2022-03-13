@@ -6,6 +6,7 @@ The Boron Virtual Machine currently has 17 opcodes.  See documentation for each 
 
 
 `0x00`: NOP (no operation)
+
 No arguments.
 
 
@@ -113,6 +114,24 @@ Arguments:
 - Pointer (4 bytes): location in memory to jump to
 - Register 1 (1 byte): value in register 1 should be not equal to value in register 2
 - Register 2 (1 byte)
+
+
+
+`0x51`: XSR (execute subroutine)
+
+Arguments:
+- Pointer (4 bytes): location in memory to jump to
+
+
+
+`0xA1`: TX (print the first byte from the output buffer to the console)
+
+No arguments
+
+`0xA2`: RX (load the first byte from the input buffer to the given register)
+
+Arguments:
+- Register (1 byte): location to store byte
 
 
 
