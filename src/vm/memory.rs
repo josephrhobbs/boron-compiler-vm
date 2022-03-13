@@ -36,11 +36,8 @@ pub fn initialize_vm() -> VirtualMachine {
 impl VirtualMachine {
     // Loads programs into virtual memory
     pub fn load_program(&mut self, program: Vec<u8>) {
-        let mut new_program = program;
-        while new_program.len() < PGRM_SIZE {
-            new_program.push(0u8);
-        }
-        self.memory.splice(0..PGRM_SIZE, new_program.iter().cloned());
+        let mut new_program = &program;
+        self.memory.splice(0..program.len(), new_program.iter().cloned());
     }
     pub fn load_builtins(&mut self) {
 
