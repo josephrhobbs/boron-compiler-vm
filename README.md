@@ -3,4 +3,7 @@ BORON
 
 A general-purpose compiled programming language that's fast, simple, and easy-to-use.
 
-More information coming soon.
+WIP DISCLAIMER
+==============
+
+This is a work in progress.  More information, documentation, and source code is continuously forthcoming.
