@@ -5,7 +5,7 @@
 //     2^28 = 268435456 bytes (268 MB) of virtual RAM
 //     2^26 = 67108864 bytes (67 MB) of program storage
 //
-//     15 64-bit general-purpose registers
+//     16 64-bit general-purpose registers
 //     1 32-bit program counter
 
 // Memory map:
@@ -19,7 +19,7 @@
 //     0xF        -> program counter
 
 const MEM_SIZE: usize = 335544319;
-const NUM_REGISTERS: usize = 15;
+const NUM_REGISTERS: usize = 16;
 
 pub struct VirtualMachine {
     pub memory: Vec<u8>,
@@ -69,19 +69,26 @@ impl VirtualMachine {
         self.inc(1);
         value
     }
+    // Get the value at the current program counter without incrementing the program counter
+    pub fn peek(&mut self) -> u8 {
+        let value = self.memory[self.pc as usize];
+        value
+    }
     // Increment the program counter by a specific number
     pub fn inc(&mut self, increment: u32) {
         self.pc += increment;
     }
     // Gets a slice of 8 bytes and converts it into one 64-bit value
     pub fn get_u64(&mut self) -> u64 {
-        let start = self.pc;
-        let slice = self.memory[(start as usize)..((start+8u32) as usize)].to_vec();
-        self.inc(8);
+        let mut slice: Vec<u8> = Vec::new();
+        for _ in 0..8 {
+            let next: u8 = self.next();
+            slice.push(next);
+        }
         let mut result: u64 = 0;
         for value in slice {
+            result = result << 8;
             result += value as u64;
-            result = result << 1;
         }
         result
     }
