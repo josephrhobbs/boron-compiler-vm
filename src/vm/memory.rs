@@ -65,8 +65,9 @@ impl VirtualMachine {
     }
     // Get the value at the current program counter and increment the program counter
     pub fn next(&mut self) -> u8 {
+        let value = self.memory[self.pc as usize];
         self.inc(1);
-        self.memory[self.pc as usize]
+        value
     }
     // Increment the program counter by a specific number
     pub fn inc(&mut self, increment: u32) {
