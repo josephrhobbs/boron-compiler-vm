@@ -2,6 +2,8 @@
 // Interpreter for Boron Virtual Machine bytecode
 
 use super::memory;
+use std::io;
+use std::io::Write;
 
 // Executes instructions stored in the Vrtual Machine, starting at address 0x00000000
 pub fn interpret(vm: &mut memory::VirtualMachine) {
@@ -24,6 +26,20 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
         // 0x02 ADD
         else if byte == 2u8 {
             let register = vm.next();
+        }
+        // 0x41 JMP
+        else if byte == 65u8 {
+            let pointer: u32 = vm.get_u32();
+            vm.set_pc(pointer);
+        }
+        // 0xA1 TX
+        else if byte == 161u8 {
+            print!("{}", vm.next() as char);
+            io::stdout().flush().unwrap();
+        }
+        // 0xA2 RX
+        else if byte == 162u8 {
+
         }
         // 0xFF HLT
         else if byte == 255u8 {

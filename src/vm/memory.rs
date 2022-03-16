@@ -10,13 +10,10 @@
 
 // Memory map:
 //     0x00 00 00 00 to 0x03 FF FF FF -> program storage
-//     0x04 00 00 00 to 0x04 00 FF FF -> output buffer
-//     0x04 01 00 00 to 0x04 01 FF FF -> input buffer
-//     0x04 02 00 00 to 0x13 FF FF FF -> virtual random access memory
+//     0x04 00 00 00 to 0x13 FF FF FF -> virtual random access memory
 
 // Register map:
-//     0x0 to 0xE -> general-purpose registers
-//     0xF        -> program counter
+//     0x0 to 0xF -> general-purpose registers
 
 const MEM_SIZE: usize = 335544319;
 const NUM_REGISTERS: usize = 16;
@@ -77,6 +74,24 @@ impl VirtualMachine {
     // Increment the program counter by a specific number
     pub fn inc(&mut self, increment: u32) {
         self.pc += increment;
+    }
+    // Set the program counter
+    pub fn set_pc(&mut self, new_pc: u32) {
+        self.pc = new_pc;
+    }
+    // Gets a slice of 4 bytes and converts it into one 32-bit value
+    pub fn get_u32(&mut self) -> u32 {
+        let mut slice: Vec<u8> = Vec::new();
+        for _ in 0..4 {
+            let next: u8 = self.next();
+            slice.push(next);
+        }
+        let mut result: u32 = 0;
+        for value in slice {
+            result = result << 4;
+            result += value as u32;
+        }
+        result
     }
     // Gets a slice of 8 bytes and converts it into one 64-bit value
     pub fn get_u64(&mut self) -> u64 {
