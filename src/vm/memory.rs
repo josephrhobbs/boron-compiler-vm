@@ -63,7 +63,7 @@ impl VirtualMachine {
     pub fn from_register(&mut self, register: u8) -> u64 {
         self.registers[register as usize]
     }
-    // Get the value at the current program counter
+    // Get the value at the current program counter and increment the program counter
     pub fn next(&mut self) -> u8 {
         self.inc(1);
         self.memory[self.pc as usize]
