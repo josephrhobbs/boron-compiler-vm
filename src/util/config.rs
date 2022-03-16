@@ -24,3 +24,13 @@ pub fn configure() -> Config {
 
     Config {program: buffer}
 }
+
+pub fn configure_from_filename(filename: String) -> Config {
+    let mut file = fs::File::open(&filename).expect("Could not find filename");
+    let metadata = fs::metadata(&filename).expect("Unable to read metadata");
+
+    let mut buffer = vec![0u8; metadata.len() as usize];
+    file.read(&mut buffer).expect("Buffer overflow");
+
+    Config {program: buffer}
+}

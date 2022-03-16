@@ -8,7 +8,7 @@ use util::config;
 
 fn main() {
     let configuration: config::Config = config::configure();
-    let mut virtual_machine = memory::initialize_vm();
+    let mut virtual_machine = memory::initialize();
     virtual_machine.load_program(configuration.program);
     
     interpreter::interpret(&mut virtual_machine);

@@ -27,7 +27,7 @@ pub struct VirtualMachine {
     pub pc: u32,
 }
 
-pub fn initialize_vm() -> VirtualMachine {
+pub fn initialize() -> VirtualMachine {
     VirtualMachine {memory: vec![0u8; MEM_SIZE], registers: vec![0u64; NUM_REGISTERS], pc: 0u32}
 }
 
