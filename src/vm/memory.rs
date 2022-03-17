@@ -34,51 +34,62 @@ impl VirtualMachine {
         let new_program = &program;
         self.memory.splice(0..program.len(), new_program.iter().cloned());
     }
+
     // Gets a value from memory at a given pointer
     pub fn get(&mut self, pointer: u32) -> u8 {
         self.memory[pointer as usize]
     }
+
     // Loads a value into memory at a given pointer
     pub fn store(&mut self, value: u8, pointer: u32) {
         self.memory[pointer as usize] = value;
     }
+
     // Gets a value from memory, with the pointer given by a value in a given register
     pub fn get_register(&mut self, register: u8) -> u8 {
         let pointer: usize = self.registers[register as usize] as usize;
         self.memory[pointer as usize]
     }
+
     // Loads a value into memory, with the pointer given by a value in a given register
     pub fn store_register(&mut self, value: u8, register: u8) {
         let pointer: usize = self.registers[register as usize] as usize;
         self.memory[pointer as usize] = value;
     }
+
     // Store a value in a given register
     pub fn to_register(&mut self, value: u64, register: u8) {
         self.registers[register as usize] = value;
     }
+
     // Get a value from a register
     pub fn from_register(&mut self, register: u8) -> u64 {
         self.registers[register as usize]
     }
+
     // Get the value at the current program counter and increment the program counter
     pub fn next(&mut self) -> u8 {
         let value = self.memory[self.pc as usize];
         self.inc(1);
         value
     }
+
     // Get the value at the current program counter without incrementing the program counter
     pub fn peek(&mut self) -> u8 {
         let value = self.memory[self.pc as usize];
         value
     }
+
     // Increment the program counter by a specific number
     pub fn inc(&mut self, increment: u32) {
         self.pc += increment;
     }
+
     // Set the program counter
     pub fn set_pc(&mut self, new_pc: u32) {
         self.pc = new_pc;
     }
+
     // Gets a slice of 4 bytes and converts it into one 32-bit value
     pub fn get_u32(&mut self) -> u32 {
         let mut slice: Vec<u8> = Vec::new();
@@ -93,6 +104,7 @@ impl VirtualMachine {
         }
         result
     }
+    
     // Gets a slice of 8 bytes and converts it into one 64-bit value
     pub fn get_u64(&mut self) -> u64 {
         let mut slice: Vec<u8> = Vec::new();

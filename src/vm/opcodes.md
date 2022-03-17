@@ -31,13 +31,13 @@ Arguments:
 
 
 
-`0x11`: LDR (loads into a given register a value at a given address)
+`0x11`: LD (loads into a given register a value at a given address)
 
 Arguments:
 - Register (1 byte): register
 - Pointer (4 bytes): location in memory to get data from
 
-`0x12`: STR (stores from a given register a value into memory at a given address)
+`0x12`: STO (stores from a given register a value into memory at a given address)
 
 Arguments:
 - Register (1 byte): register
@@ -45,7 +45,7 @@ Arguments:
 
 
 
-`0x21`: LDR (loads into a given register a value in a given register)
+`0x21`: LDR (loads into a given register a value at an address provided by a given register)
 
 Arguments:
 - Destination register (1 byte): register that will store the final value
