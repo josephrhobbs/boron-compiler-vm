@@ -5,7 +5,7 @@ use super::memory;
 use std::io;
 use std::io::Write;
 
-// Executes instructions stored in the Vrtual Machine, starting at address 0x00000000
+// Executes instructions stored in the Virtual Machine, starting at address 0x00000000
 pub fn interpret(vm: &mut memory::VirtualMachine) {
     // We iterate forever until we receive the halt operation
     loop {
