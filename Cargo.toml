@@ -10,3 +10,5 @@ edition = "2018"
 [[bin]]
 name = "bvm"
 path = "src/bvm.rs"
+
+# Add [[bin]] for boron compiler later
