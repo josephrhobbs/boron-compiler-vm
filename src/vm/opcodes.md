@@ -11,7 +11,7 @@ No arguments.
 
 
 
-`0x01`: STO (store a value in a given register)
+`0x01`: SET (store a value in a given register)
 
 Arguments:
 - Register (1 byte): register

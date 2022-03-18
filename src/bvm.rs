@@ -7,7 +7,7 @@ use vm::{memory, interpreter};
 use util::config;
 
 fn main() {
-    let configuration: config::Config = config::configure();
+    let configuration: config::BinConfig = config::binconfigure();
     let mut virtual_machine = memory::initialize();
     virtual_machine.load_program(configuration.program);
 
