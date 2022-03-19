@@ -42,6 +42,7 @@ pub fn txtconfigure() -> TxtConfig {
     // We pass &mut buffer to prevent changing the scope of buffer while still permitting modification
     file.read_to_string(&mut buffer).expect("Buffer overflow");
 
+    // Remove the extension from the name (so that we can put a .bex extension on it after assembly)
     let name_ext_rmvd: String = name[..name.len()-4].to_string();
 
     TxtConfig {program: buffer, name: name_ext_rmvd}

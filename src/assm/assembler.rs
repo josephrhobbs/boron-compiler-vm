@@ -41,8 +41,6 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
 
     // TODO: Conduct subroutine management
 
-    bytecode = vec![0u8];
-
     // Convert tokens to bytecode
     for token in tokens {
         // TODO: Is there a .lower() method for String?  If so, implement here
@@ -50,6 +48,11 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
 
         // NB: Use .collect::<T>() to collect into a specified type
         let first_char: char = t.chars().collect::<Vec<char>>()[0];
+
+        // 0x00 NOP
+        if t == "nop" {
+            bytecode.push(0);
+        }
 
         // 0x01 SET
         if t == "set" {

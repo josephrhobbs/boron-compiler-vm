@@ -12,4 +12,6 @@ fn main() {
     virtual_machine.load_program(configuration.program);
 
     interpreter::interpret(&mut virtual_machine);
+
+    dbg!(&virtual_machine.registers);
 }

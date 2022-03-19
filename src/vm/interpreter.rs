@@ -116,6 +116,90 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
             vm.set_pc(pointer);
         }
 
+        // 0x42 JLT
+        else if byte == 66u8 {
+            let pointer: u32 = vm.get_u32();
+            let r1: u8 = vm.next();
+            let r2: u8 = vm.next();
+
+            let v1: u64 = vm.from_register(r1);
+            let v2: u64 = vm.from_register(r2);
+
+            if v1 < v2 {
+                vm.set_pc(pointer);
+            }
+        }
+
+        // 0x43 JLE
+        else if byte == 67u8 {
+            let pointer: u32 = vm.get_u32();
+            let r1: u8 = vm.next();
+            let r2: u8 = vm.next();
+
+            let v1: u64 = vm.from_register(r1);
+            let v2: u64 = vm.from_register(r2);
+
+            if v1 <= v2 {
+                vm.set_pc(pointer);
+            }
+        }
+
+        // 0x44 JGT
+        else if byte == 68u8 {
+            let pointer: u32 = vm.get_u32();
+            let r1: u8 = vm.next();
+            let r2: u8 = vm.next();
+
+            let v1: u64 = vm.from_register(r1);
+            let v2: u64 = vm.from_register(r2);
+
+            if v1 > v2 {
+                vm.set_pc(pointer);
+            }
+        }
+
+        // 0x45 JGE
+        else if byte == 69u8 {
+            let pointer: u32 = vm.get_u32();
+            let r1: u8 = vm.next();
+            let r2: u8 = vm.next();
+
+            let v1: u64 = vm.from_register(r1);
+            let v2: u64 = vm.from_register(r2);
+
+            if v1 >= v2 {
+                vm.set_pc(pointer);
+            }
+        }
+
+        // 0x46 JEQ
+        else if byte == 70u8 {
+            let pointer: u32 = vm.get_u32();
+            let r1: u8 = vm.next();
+            let r2: u8 = vm.next();
+
+            let v1: u64 = vm.from_register(r1);
+            let v2: u64 = vm.from_register(r2);
+
+            if v1 == v2 {
+                vm.set_pc(pointer);
+            }
+        }
+
+        // 0x47 JNE
+        else if byte == 71u8 {
+            let pointer: u32 = vm.get_u32();
+            let r1: u8 = vm.next();
+            let r2: u8 = vm.next();
+
+            let v1: u64 = vm.from_register(r1);
+            let v2: u64 = vm.from_register(r2);
+
+            if v1 != v2 {
+                vm.set_pc(pointer);
+            }
+        }
+
         // 0xA1 TX
         else if byte == 161u8 {
             print!("{}", vm.next() as char);
