@@ -11,6 +11,7 @@ pub struct BinConfig {
 
 pub struct TxtConfig {
     pub program: String,
+    pub name: String,
 }
 
 pub fn binconfigure() -> BinConfig {
@@ -41,5 +42,7 @@ pub fn txtconfigure() -> TxtConfig {
     // We pass &mut buffer to prevent changing the scope of buffer while still permitting modification
     file.read_to_string(&mut buffer).expect("Buffer overflow");
 
-    TxtConfig {program: buffer}
+    let name_ext_rmvd: String = name[..name.len()-4].to_string();
+
+    TxtConfig {program: buffer, name: name_ext_rmvd}
 }
