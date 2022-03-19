@@ -23,9 +23,13 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             }
         }
         let next_token: String = current.clone();
-        tokens.push(next_token);
+        if !next_token.is_empty() {
+            tokens.push(next_token);
+        }
         current = String::new();
     }
+
+    println!("{:#?}", tokens);
 
     bytecode = vec![0u8];
     // TODO: Implement conversion between tokens and output bytecode
