@@ -1,10 +1,7 @@
 // crate::bassm
 
-mod util;
-mod assm;
-
-use util::config;
-use assm::assembler;
+use boron::util::config;
+use boron::assm::assembler;
 
 fn main() {
     let configuration: config::TxtConfig = config::txtconfigure();

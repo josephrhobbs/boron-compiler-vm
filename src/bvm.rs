@@ -1,10 +1,10 @@
 // crate::bvm
 
-mod vm;
-mod util;
+//mod vm;
+//mod util;
 
-use vm::{memory, interpreter};
-use util::config;
+use boron::vm::{memory, interpreter};
+use boron::util::config;
 
 fn main() {
     let configuration: config::BinConfig = config::binconfigure();
