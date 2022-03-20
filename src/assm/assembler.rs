@@ -123,6 +123,9 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
         else if first_char == 'r' {
             let register_str: &str = &(t[1..].to_string());
             
+            let register: u8 = register_str.parse::<u8>().unwrap();
+            bytecode.push(register);
+            
             // TODO: convert register_str into a u8
             // e.g. &str: "12" -> u8: 12
         }

@@ -1,0 +1,13 @@
+# Test program in Boron Assembly Language
+
+nop
+nop
+set r1 0
+set r2 1
+add r1 10
+
+# Results should be
+# r0: 0
+# r1: 11
+# r2: 1
+# r3-r15: 0

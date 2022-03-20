@@ -1,8 +1,5 @@
 // crate::bvm
 
-//mod vm;
-//mod util;
-
 use boron::vm::{memory, interpreter};
 use boron::util::config;
 
@@ -12,6 +9,4 @@ fn main() {
     virtual_machine.load_program(configuration.program);
 
     interpreter::interpret(&mut virtual_machine);
-
-    dbg!(&virtual_machine.registers);
 }
