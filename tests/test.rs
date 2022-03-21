@@ -13,6 +13,7 @@ fn bin00() {
     virtual_machine.load_program(configuration.program);
 
     interpreter::interpret(&mut virtual_machine);
+    dbg!(&virtual_machine.registers);
 }
 
 #[test]
@@ -21,6 +22,8 @@ fn assm00() {
     let program: Vec<&str> = configuration.program.lines().collect();
 
     let bytecode: Vec<u8> = assembler::assemble(program);
+    dbg!(&bytecode);
 
     let output_filename: String = configuration.name;
+    dbg!(&output_filename);
 }

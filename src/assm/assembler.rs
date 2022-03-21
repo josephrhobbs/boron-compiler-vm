@@ -34,6 +34,19 @@ pub fn tokenize(program: Vec<&str>) -> Vec<String> {
     tokens
 }
 
+// Reverses the order of bytes for use during assembly
+// NOTE: DOES NOT WORK
+fn reverse_bytes(value: u64) -> Vec<u8> {
+    let mut result: Vec<u8> = Vec::new();
+    let mut v: u64 = value;
+    for _ in 0..8 {
+        result.push((v % 256) as u8);
+        v = v >> 8;
+    }
+    // TODO: Figure out how to reverse this and return it properly
+    result
+}
+
 pub fn assemble(program: Vec<&str>) -> Vec<u8> {
     let mut bytecode: Vec<u8> = Vec::new();
 
@@ -125,9 +138,22 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             
             let register: u8 = register_str.parse::<u8>().unwrap();
             bytecode.push(register);
-            
-            // TODO: convert register_str into a u8
-            // e.g. &str: "12" -> u8: 12
+        }
+
+        else {
+            let l: (u64, bool) = match t.parse::<u64>() {
+                Ok(value) => (value, true),
+                Err(error) => (0u64, false)
+            };
+
+            let mut literal = l.0;
+
+            if l.1 {
+                for _ in 0..8 {
+                    bytecode.push((literal % 256) as u8);
+                    literal = literal >> 8;
+                }
+            }
         }
     }
 
