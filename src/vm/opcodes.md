@@ -1,7 +1,7 @@
 OPCODES
 =======
 
-The Boron Virtual Machine currently has 17 opcodes.  See documentation for each below.
+The Boron Virtual Machine currently has 20 opcodes.  See documentation for each below.
 
 
 

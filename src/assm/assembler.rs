@@ -28,14 +28,10 @@ pub fn tokenize(program: Vec<&str>) -> Vec<String> {
         current = String::new();
     }
 
-    // dbg! macro takes ownership of variables
-    dbg!(&tokens);
-
     tokens
 }
 
 // Reverses the order of bytes for use during assembly
-// NOTE: DOES NOT WORK
 fn reverse_bytes(value: u64) -> Vec<u8> {
     let mut result: Vec<u8> = Vec::new();
     let mut v: u64 = value;
@@ -43,8 +39,7 @@ fn reverse_bytes(value: u64) -> Vec<u8> {
         result.push((v % 256) as u8);
         v = v >> 8;
     }
-    // TODO: Figure out how to reverse this and return it properly
-    result
+    result.into_iter().rev().collect()
 }
 
 pub fn assemble(program: Vec<&str>) -> Vec<u8> {
@@ -143,16 +138,13 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
         else {
             let l: (u64, bool) = match t.parse::<u64>() {
                 Ok(value) => (value, true),
-                Err(error) => (0u64, false)
+                Err(_) => (0u64, false)
             };
 
-            let mut literal = l.0;
+            let literal = l.0;
 
             if l.1 {
-                for _ in 0..8 {
-                    bytecode.push((literal % 256) as u8);
-                    literal = literal >> 8;
-                }
+                bytecode.append(&mut reverse_bytes(literal));
             }
         }
     }

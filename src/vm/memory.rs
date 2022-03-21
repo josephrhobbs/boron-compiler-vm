@@ -94,6 +94,9 @@ impl VirtualMachine {
     pub fn get_u32(&mut self) -> u32 {
         let mut slice: Vec<u8> = Vec::new();
         for _ in 0..4 {
+            self.next();
+        }
+        for _ in 0..4 {
             let next: u8 = self.next();
             slice.push(next);
         }

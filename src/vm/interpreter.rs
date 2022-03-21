@@ -1,9 +1,12 @@
 // crate::vm::interpreter
 // Interpreter for Boron Virtual Machine bytecode
 
-use super::memory;
 use std::io;
 use std::io::Write;
+
+use console::Term;
+
+use super::memory;
 
 // Executes instructions stored in the Virtual Machine, starting at address 0x00000000
 pub fn interpret(vm: &mut memory::VirtualMachine) {
@@ -202,13 +205,20 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
         // 0xA1 TX
         else if byte == 161u8 {
-            print!("{}", vm.next() as char);
+            let pointer = vm.get_u32();
+            let byte: char = vm.get(pointer) as char;
+
+            print!("{}", byte);
             io::stdout().flush().unwrap();
         }
 
         // 0xA2 RX
         else if byte == 162u8 {
-            // TODO: Implement input buffer
+            let pointer = vm.get_u32();
+            let terminal = Term::stdout();
+            let byte: u8 = terminal.read_char().unwrap() as u8;
+
+            vm.store(byte, pointer);
         }
 
         // 0xFF HLT
