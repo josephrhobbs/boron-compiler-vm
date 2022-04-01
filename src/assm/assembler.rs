@@ -51,7 +51,6 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
 
     // Convert tokens to bytecode
     for token in tokens {
-        // TODO: Is there a .lower() method for String?  If so, implement here
         let t: &str = &String::from(token).to_lowercase();
 
         // NB: Use .collect::<T>() to collect into a specified type

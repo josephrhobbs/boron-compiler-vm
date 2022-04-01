@@ -13,10 +13,11 @@
 //     0x04 00 00 00 to 0x13 FF FF FF -> virtual random access memory
 
 // Register map:
-//     0x0 to 0xF -> general-purpose registers
+//     0x0 to 0xE -> general-purpose registers
+//     0xF        -> program counter
 
 const MEM_SIZE: usize = 335544319;
-const NUM_REGISTERS: usize = 16;
+const NUM_REGISTERS: usize = 15;
 
 pub struct VirtualMachine {
     pub memory: Vec<u8>,
@@ -59,12 +60,20 @@ impl VirtualMachine {
 
     // Store a value in a given register
     pub fn to_register(&mut self, value: u64, register: u8) {
-        self.registers[register as usize] = value;
+        if register < 15 {
+            self.registers[register as usize] = value;
+        } else if register == 15 {
+            self.pc = value;
+        }
     }
 
     // Get a value from a register
     pub fn from_register(&mut self, register: u8) -> u64 {
-        self.registers[register as usize]
+        if register < 15 {
+            self.registers[register as usize]
+        } else if register == 15 {
+            self.pc
+        }
     }
 
     // Get the value at the current program counter and increment the program counter
