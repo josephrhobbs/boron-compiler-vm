@@ -63,7 +63,7 @@ impl VirtualMachine {
         if register < 15 {
             self.registers[register as usize] = value;
         } else if register == 15 {
-            self.pc = value;
+            self.pc = value as u32;
         }
     }
 
@@ -71,8 +71,8 @@ impl VirtualMachine {
     pub fn from_register(&mut self, register: u8) -> u64 {
         if register < 15 {
             self.registers[register as usize]
-        } else if register == 15 {
-            self.pc
+        } else {
+            self.pc.into()
         }
     }
 
