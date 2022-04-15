@@ -239,7 +239,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
         // 0x62 RECOVER
         else if byte == 98u8 {
             let mut new_registers: Vec<u64> = Vec::new();
-            for _ in 1..vm.registers.len() {
+            for _ in 1..=vm.registers.len() {
                 new_registers.push(vm.pop());
             }
             new_registers.reverse();

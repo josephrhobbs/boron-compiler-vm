@@ -154,6 +154,31 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             bytecode.push(82);
         }
 
+        // 0x61 SAVE
+        else if t == "save" {
+            bytecode.push(97);
+        }
+
+        // 0x62 RECOVER
+        else if t == "recover" {
+            bytecode.push(98);
+        }
+
+        // NAME
+        else if t == "name" {
+            // TODO: Store the current instruction
+        }
+
+        // CALL
+        else if t == "call" {
+            // TODO: Find the corresponding `name`
+        }
+
+        // 0x63 RET
+        else if t == "ret" {
+            bytecode.push(99);
+        }
+
         // 0xA1 TX
         else if t == "tx" {
             bytecode.push(161);
