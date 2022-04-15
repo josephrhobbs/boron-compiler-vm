@@ -120,6 +120,24 @@ Arguments:
 - Register 1 (1 byte): value in register 1 should be not equal to value in register 2
 - Register 2 (1 byte)
 
+`0x48`: JPR (jump register) **(NOT IMPLEMENTED)**
+
+Arguments:
+- Register (1 byte): register from which to get jump pointer
+
+
+
+`0x51`: PUSH (push the value in the given register onto the stack)
+
+Arguments:
+- Register (1 byte): register
+
+
+`0x52`: POP (pop the top value off of the stack and store it in the given register)
+
+Arguments:
+- Register (1 byte): register
+
 
 
 `0xA1`: TX (print the byte at the current program counter to the console)
@@ -132,4 +150,4 @@ No arguments
 
 
 
-`0xFF`: HLT (halt program execution)
+`0xFF`: HALT (halt program execution)

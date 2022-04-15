@@ -7,6 +7,7 @@
 //
 //     16 64-bit general-purpose registers
 //     1 32-bit program counter
+//     
 
 // Memory map:
 //     0x00 00 00 00 to 0x03 FF FF FF -> program storage
@@ -17,16 +18,17 @@
 //     0xF        -> program counter
 
 const MEM_SIZE: usize = 335544319;
-const NUM_REGISTERS: usize = 15;
+const NUM_REGISTERS: usize = 16;
 
 pub struct VirtualMachine {
     pub memory: Vec<u8>,
     pub registers: Vec<u64>,
     pub pc: u32,
+    pub stack: Vec<u64>,
 }
 
 pub fn initialize() -> VirtualMachine {
-    VirtualMachine {memory: vec![0u8; MEM_SIZE], registers: vec![0u64; NUM_REGISTERS], pc: 0u32}
+    VirtualMachine {memory: vec![0u8; MEM_SIZE], registers: vec![0u64; NUM_REGISTERS], pc: 0u32, stack: Vec::new()}
 }
 
 impl VirtualMachine {
@@ -130,5 +132,20 @@ impl VirtualMachine {
             result += value as u64;
         }
         result
+    }
+
+    // Pushes a given value onto the stack
+    pub fn push(&mut self, value: u64) {
+        self.stack.push(value);
+    }
+
+    // Pops the top value off of the stack
+    pub fn pop(&mut self) -> u64 {
+        if let Some(value) = self.stack.pop() {
+            value
+        } else {
+            // TODO: Implement more robust error handling
+            panic!("Tried to pop a value off of an empty stack");
+        }
     }
 }

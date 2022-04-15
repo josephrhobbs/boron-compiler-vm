@@ -47,8 +47,6 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
 
     let tokens: Vec<String> = tokenize(program);
 
-    // TODO: Conduct subroutine management
-
     // Convert tokens to bytecode
     for token in tokens {
         let t: &str = &String::from(token).to_lowercase();
@@ -111,6 +109,16 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             bytecode.push(65);
         }
 
+        // 0x51 PUSH
+        else if t == "push" {
+            bytecode.push(81);
+        }
+
+        // 0x52 POP
+        else if t == "pop" {
+            bytecode.push(82);
+        }
+
         // 0xA1 TX
         else if t == "tx" {
             bytecode.push(161);
@@ -122,7 +130,7 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
         }
 
         // 0xFF HLT
-        else if t == "hlt" {
+        else if t == "halt" {
             bytecode.push(255);
         }
 
@@ -134,17 +142,9 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             bytecode.push(register);
         }
 
-        else {
-            let l: (u64, bool) = match t.parse::<u64>() {
-                Ok(value) => (value, true),
-                Err(_) => (0u64, false)
-            };
-
-            let literal = l.0;
-
-            if l.1 {
-                bytecode.append(&mut reverse_bytes(literal));
-            }
+        // Token represents a literal u64, attempt to parse it as an integer
+        else if let Ok(value) = t.parse::<u64>() {
+            bytecode.append(&mut reverse_bytes(value));
         }
     }
 

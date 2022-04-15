@@ -1,4 +1,4 @@
 pub mod vm;
 pub mod assm;
 pub mod util;
-pub mod lexer;
+pub mod tokenizer;
