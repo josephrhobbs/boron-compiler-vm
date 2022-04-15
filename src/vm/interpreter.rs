@@ -225,6 +225,38 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
             vm.to_register(value, register);
         }
 
+        // 0x61 SAVE
+        else if byte == 97u8 {
+            // We need to copy the register values to avoid issues
+            for value in vm.registers.clone().iter() {
+                vm.push(*value);
+            }
+
+            // Set the PC to the next instruction *without consuming the next instruction*
+            vm.push((vm.pc + 1) as u64);
+        }
+
+        // 0x62 RECOVER
+        else if byte == 98u8 {
+            let mut new_registers: Vec<u64> = Vec::new();
+            for _ in 1..vm.registers.len() {
+                new_registers.push(vm.pop());
+            }
+            new_registers.reverse();
+            vm.registers = new_registers;
+        }
+
+        // 0x63 RET
+        else if byte == 99u8 {
+            // Get the return value, pop the return address from the top of the stack, and then push the return value to the stack
+            let return_register = vm.next();
+            let return_value = vm.from_register(return_register);
+
+            let return_pointer = vm.pop();
+            vm.push(return_value);
+            vm.set_pc(return_pointer as u32);
+        }
+
         // 0xA1 TX
         else if byte == 161u8 {
             let pointer = vm.get_u32();
