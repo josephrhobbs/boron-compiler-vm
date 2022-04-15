@@ -109,6 +109,41 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             bytecode.push(65);
         }
 
+        // 0x42 JLT
+        else if t == "jlt" {
+            bytecode.push(66);
+        }
+
+        // 0x43 JLE
+        else if t == "jle" {
+            bytecode.push(67);
+        }
+
+        // 0x44 JGT
+        else if t == "jgt" {
+            bytecode.push(68);
+        }
+
+        // 0x45 JGE
+        else if t == "jge" {
+            bytecode.push(69);
+        }
+
+        // 0x46 JEQ
+        else if t == "jeq" {
+            bytecode.push(70);
+        }
+
+        // 0x47 JNE
+        else if t == "jne" {
+            bytecode.push(71);
+        }
+
+        // 0x48 JPR
+        else if t == "jpr" {
+            bytecode.push(72);
+        }
+
         // 0x51 PUSH
         else if t == "push" {
             bytecode.push(81);

@@ -203,6 +203,14 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
             }
         }
 
+        // 0x48 JPR
+        else if byte == 72u8 {
+            let register: u8 = vm.next();
+            let value: u64 = vm.from_register(register);
+
+            vm.set_pc(value as u32);
+        }
+
         // 0x51 PUSH
         else if byte == 81u8 {
             let register: u8 = vm.next();
