@@ -58,7 +58,8 @@ pub fn txtconfigure() -> TxtConfig {
     file.read_to_string(&mut buffer).expect("Buffer overflow");
 
     // Remove the extension from the name (so that we can put a .bex extension on it after assembly)
-    let name_ext_rmvd: String = name[..name.len()-4].to_string();
+    let mut name_ext_rmvd: String = name.clone();
+    name_ext_rmvd.truncate(name.len() - 4);
 
     TxtConfig {program: buffer, name: name_ext_rmvd}
 }
