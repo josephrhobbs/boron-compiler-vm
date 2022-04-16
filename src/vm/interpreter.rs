@@ -58,7 +58,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
         // 0x11 LD
         else if byte == 17u8 {
             let register = vm.next();
-            let pointer = vm.get_u32();
+            let pointer = vm.get_u64() as u32;
 
             let value = vm.get(pointer) as u64;
             vm.to_register(value, register);
@@ -67,7 +67,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
         // 0x12 STO
         else if byte == 17u8 {
             let register = vm.next();
-            let pointer = vm.get_u32();
+            let pointer = vm.get_u64() as u32;
             
             let value = vm.from_register(register) as u8;
             vm.store(value, pointer);
@@ -115,13 +115,13 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
         // 0x41 JMP
         else if byte == 65u8 {
-            let pointer: u32 = vm.get_u32();
+            let pointer: u32 = vm.get_u64() as u32;
             vm.set_pc(pointer);
         }
 
         // 0x42 JLT
         else if byte == 66u8 {
-            let pointer: u32 = vm.get_u32();
+            let pointer: u32 = vm.get_u64() as u32;
             let r1: u8 = vm.next();
             let r2: u8 = vm.next();
 
@@ -135,7 +135,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
         // 0x43 JLE
         else if byte == 67u8 {
-            let pointer: u32 = vm.get_u32();
+            let pointer: u32 = vm.get_u64() as u32;
             let r1: u8 = vm.next();
             let r2: u8 = vm.next();
 
@@ -149,7 +149,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
         // 0x44 JGT
         else if byte == 68u8 {
-            let pointer: u32 = vm.get_u32();
+            let pointer: u32 = vm.get_u64() as u32;
             let r1: u8 = vm.next();
             let r2: u8 = vm.next();
 
@@ -163,7 +163,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
         // 0x45 JGE
         else if byte == 69u8 {
-            let pointer: u32 = vm.get_u32();
+            let pointer: u32 = vm.get_u64() as u32;
             let r1: u8 = vm.next();
             let r2: u8 = vm.next();
 
@@ -177,7 +177,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
         // 0x46 JEQ
         else if byte == 70u8 {
-            let pointer: u32 = vm.get_u32();
+            let pointer: u32 = vm.get_u64() as u32;
             let r1: u8 = vm.next();
             let r2: u8 = vm.next();
 
@@ -191,7 +191,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
         // 0x47 JNE
         else if byte == 71u8 {
-            let pointer: u32 = vm.get_u32();
+            let pointer: u32 = vm.get_u64() as u32;
             let r1: u8 = vm.next();
             let r2: u8 = vm.next();
 
@@ -259,7 +259,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
         // 0xA1 TX
         else if byte == 161u8 {
-            let pointer = vm.get_u32();
+            let pointer = vm.get_u64() as u32;
             let byte: char = vm.get(pointer) as char;
 
             print!("{}", byte);
@@ -268,7 +268,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
         // 0xA2 RX
         else if byte == 162u8 {
-            let pointer = vm.get_u32();
+            let pointer = vm.get_u64() as u32;
             let terminal = Term::stdout();
             let byte: u8 = terminal.read_char().unwrap() as u8;
 

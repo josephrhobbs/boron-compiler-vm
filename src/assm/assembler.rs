@@ -1,5 +1,7 @@
 // crate::assm::assembler
 
+use std::collections::HashMap;
+
 pub fn tokenize(program: Vec<&str>) -> Vec<String> {
     let mut tokens: Vec<String> = Vec::new();
     let mut current = String::new();
@@ -45,11 +47,21 @@ fn reverse_bytes(value: u64) -> Vec<u8> {
 pub fn assemble(program: Vec<&str>) -> Vec<u8> {
     let mut bytecode: Vec<u8> = Vec::new();
 
+    // Create a HashMap storing function names and instruction pointers for them
+    let mut functions: HashMap<String, usize> = HashMap::new();
+
     let tokens: Vec<String> = tokenize(program);
 
     // Convert tokens to bytecode
-    for token in tokens {
+    for (i, token) in tokens.iter().enumerate() {
         let t: &str = &String::from(token).to_lowercase();
+
+        let mut peek: String = String::new();
+        
+        if i + 1 < tokens.len() {
+            // If there is another token in the program, set the next token to `peek`
+            peek = String::from(&tokens[i + 1]).to_lowercase();
+        }
 
         // NB: Use .collect::<T>() to collect into a specified type
         let first_char: char = t.chars().collect::<Vec<char>>()[0];
@@ -166,12 +178,24 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
 
         // NAME
         else if t == "name" {
-            // TODO: Store the current instruction
+            // Get the current position in memory
+            let pc = bytecode.len();
+            functions.insert(
+                peek,
+                pc
+            );
         }
 
         // CALL
         else if t == "call" {
-            // TODO: Find the corresponding `name`
+            if functions.contains_key(peek.as_str()) {
+                // JMP
+                bytecode.push(65);
+                bytecode.append(&mut reverse_bytes(i as u64));
+            } else {
+                // TODO: Implement more robust error handling
+                panic!("`call` attempted to call a non-existent function")
+            }
         }
 
         // 0x63 RET
@@ -200,6 +224,11 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             
             let register: u8 = register_str.parse::<u8>().unwrap();
             bytecode.push(register);
+        }
+
+        // Token represents a label, we've already handled this in above functions
+        else if first_char == '.' {
+            // Do nothing
         }
 
         // Token represents a literal u64, attempt to parse it as an integer

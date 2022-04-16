@@ -35,13 +35,13 @@ Arguments:
 
 Arguments:
 - Register (1 byte): register
-- Pointer (4 bytes): location in memory to get data from
+- Pointer (8 bytes): location in memory to get data from
 
 `0x12`: STO (stores from a given register a value into memory at a given address)
 
 Arguments:
 - Register (1 byte): register
-- Pointer (4 bytes): location in memory to store to
+- Pointer (8 bytes): location in memory to store to
 
 
 
@@ -76,47 +76,47 @@ Arguments:
 `0x41`: JMP (jump)
 
 Arguments:
-- Pointer (4 bytes): location in memory to jump to
+- Pointer (8 bytes): location in memory to jump to
 
 `0x42`: JLT (jump less than)
 
 Arguments:
-- Pointer (4 bytes): location in memory to jump to
+- Pointer (8 bytes): location in memory to jump to
 - Register 1 (1 byte): value in register 1 should be less than value in register 2
 - Register 2 (1 byte)
 
 `0x43`: JLE (jump less than or equal)
 
 Arguments:
-- Pointer (4 bytes): location in memory to jump to
+- Pointer (8 bytes): location in memory to jump to
 - Register 1 (1 byte): value in register 1 should be less than or equal to value in register 2
 - Register 2 (1 byte)
 
 `0x44`: JGT (jump greater than)
 
 Arguments:
-- Pointer (4 bytes): location in memory to jump to
+- Pointer (8 bytes): location in memory to jump to
 - Register 1 (1 byte): value in register 1 should be greater than value in register 2
 - Register 2 (1 byte)
 
 `0x45`: JGE (jump greater than or equal)
 
 Arguments:
-- Pointer (4 bytes): location in memory to jump to
+- Pointer (8 bytes): location in memory to jump to
 - Register 1 (1 byte): value in register 1 should be greater than or equal to value in register 2
 - Register 2 (1 byte)
 
 `0x46`: JEQ (jump equal)
 
 Arguments:
-- Pointer (4 bytes): location in memory to jump to
+- Pointer (8 bytes): location in memory to jump to
 - Register 1 (1 byte): value in register 1 should be equal to value in register 2
 - Register 2 (1 byte)
 
 `0x47`: JNE (jump not equal)
 
 Arguments:
-- Pointer (4 bytes): location in memory to jump to
+- Pointer (8 bytes): location in memory to jump to
 - Register 1 (1 byte): value in register 1 should be not equal to value in register 2
 - Register 2 (1 byte)
 
@@ -151,7 +151,7 @@ No arguments
 CALL (call a function)
 
 Arguments:
-- Pointer (4 bytes): position in memory at which function starts
+- Pointer (8 bytes): position in memory at which function starts
 
 `0x63`: RET (return from a function call)
 
