@@ -233,7 +233,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
             }
 
             // Set the PC to the next instruction *without consuming the next instruction*
-            vm.push((vm.pc + 1) as u64);
+            vm.push(vm.pc as u64);
         }
 
         // 0x62 RECOVER
@@ -254,6 +254,7 @@ pub fn interpret(vm: &mut memory::VirtualMachine) {
 
             let return_pointer = vm.pop();
             vm.push(return_value);
+            println!("Returning {} to instruction {}", return_value, return_pointer);
             vm.set_pc(return_pointer as u32);
         }
 

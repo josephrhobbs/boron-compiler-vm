@@ -45,7 +45,8 @@ fn reverse_bytes(value: u64) -> Vec<u8> {
 }
 
 pub fn assemble(program: Vec<&str>) -> Vec<u8> {
-    let mut bytecode: Vec<u8> = Vec::new();
+    // Initialize bytecode... add 9 0x00 codes for entry point
+    let mut bytecode: Vec<u8> = vec![0; 9];
 
     // Create a HashMap storing function names and instruction pointers for them
     let mut functions: HashMap<String, usize> = HashMap::new();
@@ -176,6 +177,16 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             bytecode.push(98);
         }
 
+        // START
+        else if t == "start" {
+            // Write a jump instruction and splice it into the beginning of the program
+            let mut entry_point: Vec<u8> = Vec::new();
+            entry_point.push(65);
+            let current_index = bytecode.len() as u64;
+            entry_point.append(&mut reverse_bytes(current_index));
+            bytecode.splice(0..9, entry_point);
+        }
+
         // NAME
         else if t == "name" {
             // Get the current position in memory
@@ -188,14 +199,16 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
 
         // CALL
         else if t == "call" {
-            if functions.contains_key(peek.as_str()) {
-                // JMP
-                bytecode.push(65);
-                bytecode.append(&mut reverse_bytes(i as u64));
-            } else {
-                // TODO: Implement more robust error handling
-                panic!("`call` attempted to call a non-existent function")
-            }
+            // JMP
+            bytecode.push(65);
+            let instruction = match functions.get(&peek) {
+                Some(s) => s,
+                None => {
+                    // TODO: Implement more robust error handling
+                    panic!("`call` attempted to call a non-existent function")
+                },
+            };
+            bytecode.append(&mut reverse_bytes(*instruction as u64));
         }
 
         // 0x63 RET
