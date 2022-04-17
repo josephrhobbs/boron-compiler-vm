@@ -140,20 +140,12 @@ Arguments:
 
 
 
-`0x61`: SAVE (save the values of the current registers, increments the program counter, and pushes the value of the new program counter)
-
-No arguments
-
-`0x62`: RECOVER (recover the value of the current registers from the top of the stack)
-
-No arguments
-
 CALL (call a function)
 
 Arguments:
 - Pointer (8 bytes): position in memory at which function starts
 
-`0x63`: RET (return from a function call)
+`0x61`: RETURN (return from a function call)
 
 Arguments:
 - Register (1 byte): register from which to return a value (this register will be cleared after return)
@@ -176,22 +168,4 @@ No arguments
 
 # Functions!
 
-An extremely useful feature of Boron assembly is the ability to write and call *functions*.
-
-## `name`, `call`, and `ret`
-
-`name`, `call`, and `ret` are quite useful for the execution of functions.
-
-`name` allows the user to define a function.  The name of the function (following `name`) should begin with a `.`.  For example, `name .add` allows the user to define a function named `add`.
-
-`call` allows the user to call a defined function.  The name of the function after `call` should also begin with `.`.  For example, `call .add` calls the function named `add`.
-
-`ret` acts as the inverse operation to `call`: it returns from a function back to the original instruction pointer.
-
-## How do `name`, `call`, and `ret` work?
-
-`name` tells the assembler that a function will be defined here.  It has no corresponding opcode but the assembler will remember its position in bytecode for future function calls.
-
-`call` jumps to the position of the corresponding `name` instruction.
-
-`ret` performs two operations.  It first executes a `pop` to get the top value off of the stack, which it interprets as the position in bytecode to which it should return.  It then jumps to that location.
+Coming soon!

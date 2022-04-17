@@ -16,7 +16,9 @@ pub fn tokenize(program: Vec<&str>) -> Vec<String> {
             } else if c == ' ' {
                 // Spaces separate tokens
                 let next_token: String = current.clone();
-                tokens.push(next_token);
+                if !next_token.is_empty() {
+                    tokens.push(next_token);
+                }
                 current = String::new();
             } else {
                 // Push to the next token
@@ -29,7 +31,6 @@ pub fn tokenize(program: Vec<&str>) -> Vec<String> {
         }
         current = String::new();
     }
-
     tokens
 }
 
@@ -56,6 +57,8 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
     // Convert tokens to bytecode
     for (i, token) in tokens.iter().enumerate() {
         let t: &str = &String::from(token).to_lowercase();
+
+        let current_index = bytecode.len() as u64;
 
         let mut peek: String = String::new();
         
@@ -167,22 +170,11 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             bytecode.push(82);
         }
 
-        // 0x61 SAVE
-        else if t == "save" {
-            bytecode.push(97);
-        }
-
-        // 0x62 RECOVER
-        else if t == "recover" {
-            bytecode.push(98);
-        }
-
         // START
         else if t == "start" {
             // Write a jump instruction and splice it into the beginning of the program
             let mut entry_point: Vec<u8> = Vec::new();
             entry_point.push(65);
-            let current_index = bytecode.len() as u64;
             entry_point.append(&mut reverse_bytes(current_index));
             bytecode.splice(0..9, entry_point);
         }
@@ -199,7 +191,10 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
 
         // CALL
         else if t == "call" {
-            // JMP
+            // First we need to save all of the values from the stack with SAVE
+            bytecode.push(96);
+
+            // JMP command
             bytecode.push(65);
             let instruction = match functions.get(&peek) {
                 Some(s) => s,
@@ -208,12 +203,14 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
                     panic!("`call` attempted to call a non-existent function")
                 },
             };
+            // Push pointer of function start instruction
             bytecode.append(&mut reverse_bytes(*instruction as u64));
         }
 
         // 0x63 RET
-        else if t == "ret" {
-            bytecode.push(99);
+        else if t == "return" {
+            // Return
+            bytecode.push(97);
         }
 
         // 0xA1 TX

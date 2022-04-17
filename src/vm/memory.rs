@@ -18,7 +18,7 @@
 //     0xF        -> program counter
 
 const MEM_SIZE: usize = 335544319;
-const NUM_REGISTERS: usize = 16;
+pub const NUM_REGISTERS: usize = 16;
 
 pub struct VirtualMachine {
     pub memory: Vec<u8>,
