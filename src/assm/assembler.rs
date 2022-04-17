@@ -189,13 +189,11 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             );
         }
 
-        // CALL
+        // 0x61 CALL
         else if t == "call" {
-            // First we need to save all of the values from the stack with SAVE
-            bytecode.push(96);
+            // CALL command (behaves like JMP)
+            bytecode.push(97);
 
-            // JMP command
-            bytecode.push(65);
             let instruction = match functions.get(&peek) {
                 Some(s) => s,
                 None => {
@@ -207,10 +205,10 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             bytecode.append(&mut reverse_bytes(*instruction as u64));
         }
 
-        // 0x63 RET
+        // 0x62 RET
         else if t == "return" {
             // Return
-            bytecode.push(97);
+            bytecode.push(98);
         }
 
         // 0xA1 TX

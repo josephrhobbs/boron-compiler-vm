@@ -140,12 +140,12 @@ Arguments:
 
 
 
-CALL (call a function)
+`0x61`: CALL (call a function)
 
 Arguments:
 - Pointer (8 bytes): position in memory at which function starts
 
-`0x61`: RETURN (return from a function call)
+`0x62`: RETURN (return from a function call)
 
 Arguments:
 - Register (1 byte): register from which to return a value (this register will be cleared after return)
