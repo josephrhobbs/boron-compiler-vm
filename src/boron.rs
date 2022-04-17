@@ -35,6 +35,11 @@ fn help() {
     println!("Help menu... coming soon!");
 }
 
+fn no_op() {
+    println!("No operation specified after filename.");
+    println!("Operations supported are `compile` and `assemble`.")
+}
+
 fn main() {
     let cli_args: Vec<String> = env::args().collect();
 
@@ -42,9 +47,12 @@ fn main() {
     if cli_args.len() == 1 {
         help();
         return;
+    } else if cli_args.len() == 2 {
+        no_op();
+        return;
     }
 
-    let command_type = cli_args[1].clone();
+    let command_type = cli_args[2].clone();
 
     // User has specified a file to compile from Boron source code to bytecode
     if command_type == String::from("compile") {
