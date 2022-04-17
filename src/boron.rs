@@ -28,11 +28,11 @@ fn assemble() {
 }
 
 fn compile() {
-
+    println!("Boron source code compilation support has not yet been added.")
 }
 
 fn help() {
-
+    println!("Help menu... coming soon!");
 }
 
 fn main() {
@@ -44,20 +44,14 @@ fn main() {
         return;
     }
 
+    let command_type = cli_args[1].clone();
+
     // User has specified a file to compile from Boron source code to bytecode
-    if cli_args.len() == 2 {
+    if command_type == String::from("compile") {
         compile();
-        return;
     }
 
-    let first_arg = cli_args[2].clone();
-    let first_arg_chars = &first_arg.as_bytes()[..];
-
-    if first_arg_chars[0] as char == '-' {
-        // User is requesting assembly instead of compilation
-        if first_arg_chars[1] as char == 's' {
-            assemble();
-            return;
-        }
+    else if command_type == String::from("assemble") {
+        assemble();
     }
 }

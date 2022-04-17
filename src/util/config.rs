@@ -16,7 +16,7 @@ pub struct TxtConfig {
 
 pub fn binconfigure() -> BinConfig {
     let args: Vec<String> = env::args().collect();
-    let name: String = args[1].clone();
+    let name: String = args[2].clone();
 
     // file must be mutable here as it is being read later in the program
     // We also pass &name rather than name to prevent changing the parent scope of name
@@ -47,7 +47,7 @@ pub fn binconfigure_from_filename(filename: &str) -> BinConfig {
 
 pub fn txtconfigure() -> TxtConfig {
     let args: Vec<String> = env::args().collect();
-    let name: String = args[1].clone();
+    let name: String = args[2].clone();
 
     // file must be mutable here as it is being read later in the program
     // We also pass &name rather than name to prevent changing the parent scope of name

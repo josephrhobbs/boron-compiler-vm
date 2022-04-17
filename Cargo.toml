@@ -13,9 +13,5 @@ name = "bvm"
 path = "src/bvm.rs"
 
 [[bin]]
-name = "bassm"
-path = "src/bassm.rs"
-
-[[bin]]
-name = "boronc"
-path = "src/boronc.rs"
+name = "boron"
+path = "src/boron.rs"
