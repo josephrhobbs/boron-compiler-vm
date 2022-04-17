@@ -7,6 +7,7 @@ Changelog
 =========
 
 `21 March 2022`: Completed Boron assembler
+`16 April 2022`: Added assembler support for function calls and stack management
 
 WIP Disclaimer
 ==============
