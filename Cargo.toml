@@ -18,3 +18,7 @@ path = "src/bvm.rs"
 [[bin]]
 name = "boron"
 path = "src/boron.rs"
+
+[lib]
+name = "boron"
+path = "src/lib.rs"
