@@ -10,10 +10,7 @@ license = "MIT"
 
 [dependencies]
 console = "0.15.0"
-
-[[bin]]
-name = "bvm"
-path = "src/bvm.rs"
+colored = "2.0.0"
 
 [[bin]]
 name = "boron"

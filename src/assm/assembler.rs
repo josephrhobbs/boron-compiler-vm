@@ -210,7 +210,7 @@ pub fn assemble(program: Vec<&str>) -> Vec<u8> {
             // Return
             bytecode.push(98);
         }
-
+        
         // 0xA1 TX
         else if t == "tx" {
             bytecode.push(161);

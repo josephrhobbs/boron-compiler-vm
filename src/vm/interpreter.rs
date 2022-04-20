@@ -11,6 +11,7 @@ use super::memory;
 // Executes instructions stored in the Virtual Machine, starting at address 0x00000000
 pub fn interpret(vm: &mut memory::VirtualMachine) {
     // We iterate forever until we receive the halt operation
+
     loop {
         let byte = vm.next();
 
