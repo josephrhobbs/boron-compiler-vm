@@ -19,5 +19,5 @@ pub fn throw(error: BoronError) {
         BoronError::UnimplementedError => "This feature has not been implemented.".to_string(),
         BoronError::BoronSyntaxError(s) => "Invalid syntax. ".to_owned() + &s,
     };
-    println!("\n{} {}\n", prefix.bold().red(), suffix.bold().white());
+    println!("{} {}\n", prefix.bold().red(), suffix.bold().white());
 }

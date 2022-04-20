@@ -10,6 +10,7 @@ pub enum CLCommand {
     Assemble,
     Exec,
     Help,
+    Version,
 }
 
 pub enum CLFlag {
@@ -36,6 +37,13 @@ pub fn args() -> CLArgs {
         // Coerce the element to a &str for easier processing
         let item: &str = &i;
 
+        let is_flag: bool = (item.as_bytes()[0] as char) == '-';
+
+        // Check Boron flags
+        if is_flag {
+            // Not implemented
+        }
+
         // Check Boron subcommands
         if item == "compile" && command_option == None {
             command_option = Some(CLCommand::Compile);
@@ -52,8 +60,10 @@ pub fn args() -> CLArgs {
         else if item == "help" && command_option == None {
             command_option = Some(CLCommand::Help);
         }
-
-        // TODO: Check Boron compiler CLI flags
+        
+        else if item == "version" && command_option == None {
+            command_option = Some(CLCommand::Version);
+        }
 
         // Assume this is a filename
         else {

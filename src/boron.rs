@@ -12,8 +12,15 @@ use boron::assm::assembler;
 use boron::vm::{memory, interpreter};
 use boron::util::error::{BoronError, throw};
 
+const VERSION: &str = "0.5.0";
+const RELEASE: &str = "alpha";
+const AUTHOR: &str = "Developed by Joseph Hobbs (https://github.com/hobbsbros/)";
+
 // MAIN FUNCTION - Program entry point
 fn main() {
+    // For formatting purposes
+    println!("");
+
     let args: CLArgs = cli::args();
 
     // Get command type from CLArgs
@@ -47,9 +54,35 @@ fn main() {
         exec(args);
         return;
     }
+
+    if command_type == &CLCommand::Version {
+        version_info();
+        return;
+    }
 }
 
 fn compile(args: CLArgs) {
+    let filename: &str = match args.filename {
+        Some(ref s) => s,
+        None => {
+            throw(BoronError::CommandLineError("No filename specified.".to_string()));
+            return;
+        }
+    };
+
+    // Get the filename from command-line argument
+    let _configuration: config::TxtConfig = config::txtconfigure(filename);
+
+    // TODO: Tokenize input
+
+    // TODO: Parse into syntax trees
+
+    // TODO: Evaluate each tree and emit Boron assembly
+
+    // TODO: Compile assembly to bytecode
+
+    // TODO: Save bytecode to file
+
     throw(BoronError::UnimplementedError);
 }
 
@@ -97,14 +130,29 @@ fn exec(args: CLArgs) {
     interpreter::interpret(&mut virtual_machine);
 
     // For debugging purposes only
-    println!("\nVirtual machine registers:");
+    println!("Virtual machine registers:");
     println!("{:#?}\n", virtual_machine.registers);
 }
 
 fn help() {
-    println!("\n{}\n", "Help menu... coming soon!".bold().yellow());
+    println!(
+        "{}\n\n{}\n\n{}{}\n",
+
+        "The Boron Language Compiler".bold().yellow(),
+
+        "USAGE:\n\tboron [SUBCOMMAND] [FILENAME]",
+
+        "AVAILABLE SUBCOMMDNS:\
+        \n\tcompile: compile Boron source code to Boron executable bytecode\
+        \n\tassemble: assemble Boron assembly language to Boron executable bytecode\
+        \n\texec: execute Boron bytecode on the Boron virtual machine\
+        \n\tversion: get Boron version information\
+        \n\thelp: display this help menu",
+
+        "Running `boron` with no subcommands will display this help menu."
+    );
 }
 
-fn no_command() {
-    throw(BoronError::CommandLineError("No subcommand specified.".to_string()));
+fn version_info() {
+    println!("{}\n{} {} {}\n{}\n", "The Boron Language Compiler".bold().yellow(), "Version".bold(), VERSION.bold(), RELEASE.bold(), AUTHOR.bold());
 }
