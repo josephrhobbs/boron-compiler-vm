@@ -62,5 +62,9 @@ pub fn args() -> CLArgs {
         }
     }
 
+    if filename == String::new() {
+        todo!("Throw an error because filename has not been defined");
+    }
+
     CLArgs {filename: filename, command: command_option, flags: flags}
 }
