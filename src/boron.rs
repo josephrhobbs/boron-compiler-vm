@@ -10,6 +10,7 @@ use boron::util::{config, cli};
 use boron::util::cli::{CLArgs, CLCommand};
 use boron::assm::assembler;
 use boron::vm::{memory, interpreter};
+use boron::util::error::{BoronError, throw};
 
 // MAIN FUNCTION - Program entry point
 fn main() {
@@ -49,14 +50,20 @@ fn main() {
 }
 
 fn compile(args: CLArgs) {
-    println!("\n{}\n", "ERROR: Boron source code compilation support has not yet been added.".bold().red());
+    throw(BoronError::UnimplementedError);
 }
 
 fn assemble(args: CLArgs) {
-    let filename: String = args.filename;
+    let filename: &str = match args.filename {
+        Some(ref s) => s,
+        None => {
+            throw(BoronError::CommandLineError("No filename specified.".to_string()));
+            return;
+        }
+    };
 
     // Get the filename from command-line argument
-    let configuration: config::TxtConfig = config::txtconfigure(&filename);
+    let configuration: config::TxtConfig = config::txtconfigure(filename);
     // Read the file and prepare it for assembly
     let program: Vec<&str> = configuration.program.lines().collect();
 
@@ -71,11 +78,17 @@ fn assemble(args: CLArgs) {
     bex_file.write(&bytecode[..]).unwrap();
 
     // Report back to user
-    println!("\n{} {} {} {}{}\n", "Wrote".green(), bytecode.len(), "to file".green(), output_filename.green(), ".bex".green());
+    println!("{} {} bytes {} {}{}\n", "Wrote".green(), bytecode.len(), "to file:".green(), output_filename, ".bex");
 }
 
 fn exec(args: CLArgs) {
-    let filename: String = args.filename;
+    let filename: &str = match args.filename {
+        Some(ref s) => s,
+        None => {
+            throw(BoronError::CommandLineError("No filename specified.".to_string()));
+            return;
+        }
+    };
 
     let configuration: config::BinConfig = config::binconfigure(&filename);
     let mut virtual_machine = memory::initialize();
@@ -93,6 +106,5 @@ fn help() {
 }
 
 fn no_command() {
-    println!("\n{}", "No sub-command specified.".bold().red());
-    println!("{}\n", "Sub-commands supported are `compile` and `assemble`.".bold().red())
+    throw(BoronError::CommandLineError("No subcommand specified.".to_string()));
 }

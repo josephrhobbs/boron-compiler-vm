@@ -2,6 +2,8 @@
 
 use std::env;
 
+use super::error::{throw, BoronError};
+
 #[derive(PartialEq)]
 pub enum CLCommand {
     Compile,
@@ -15,7 +17,7 @@ pub enum CLFlag {
 }
 
 pub struct CLArgs {
-    pub filename: String,
+    pub filename: Option<String>,
     pub command: Option<CLCommand>,
     pub flags: Vec<CLFlag>,
 }
@@ -24,6 +26,7 @@ pub struct CLArgs {
 pub fn args() -> CLArgs {
     let arguments: Vec<String> = env::args().collect();
     let mut filename: String = String::new();
+    let mut filename_option = None;
     let mut command_option: Option<CLCommand> = None;
 
     let flags: Vec<CLFlag> = Vec::new();
@@ -54,17 +57,19 @@ pub fn args() -> CLArgs {
 
         // Assume this is a filename
         else {
-            if filename != String::new() {
+            if filename == String::new() {
                 filename = String::from(i);
             } else {
-                todo!("Throw an error because filename has already been defined");
+                throw(BoronError::CommandLineError("Only one filename may be passed as an argument.".to_string()));
+                return CLArgs {filename: None, command: None, flags: Vec::new()}
             }
         }
     }
 
-    if filename == String::new() {
-        todo!("Throw an error because filename has not been defined");
+    // Assign filename_option a Some() value if a filename was provided
+    if filename != String::new() {
+        filename_option = Some(filename);
     }
 
-    CLArgs {filename: filename, command: command_option, flags: flags}
+    CLArgs {filename: filename_option, command: command_option, flags: flags}
 }
