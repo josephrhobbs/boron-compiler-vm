@@ -1,0 +1,43 @@
+// Single line comment
+
+
+
+// Importing from standard library
+use std::io::print;
+
+
+
+// Variable declaration
+value (int) = 3;
+pi (float) = 3.1415;
+
+// Creating a list with a generic type
+mylist (list<str>) = ["hello", "world"]
+
+
+
+// Single-line ternary conditional
+mybool (bool) = true;
+mybool ? print("yay!") : print("oh no");
+
+// Multi-line ternary conditional
+mybool ? {
+    print("yay!");
+} : {
+    print("oh no");
+}
+
+// More readable: multi-line if
+if mybool {
+    print("yay!");
+} else {
+    print("oh no");
+}
+
+
+
+// Function definition
+square :: value (float) -> float {
+    // Notice the explicit return statement
+    return value * value;
+}
