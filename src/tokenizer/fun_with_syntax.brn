@@ -8,22 +8,22 @@ use std::io::print;
 
 
 // Variable declaration
-value (int) = 3;
-pi (float) = 3.1415;
+value (int): 3;
+pi (float): 3.1415;
 
 // Creating a list with a generic type
-mylist (list<str>) = ["hello", "world"]
+mylist (list<str>): ["hello", "world"]
 
 
 
 // Single-line ternary conditional
-mybool (bool) = true;
-mybool ? print("yay!") : print("oh no");
+mybool (bool): true;
+mybool ? print("yay!") | print("oh no");
 
 // Multi-line ternary conditional
 mybool ? {
     print("yay!");
-} : {
+} | {
     print("oh no");
 }
 

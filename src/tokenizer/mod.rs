@@ -1,5 +1,7 @@
 // crate::boron::tokenizer
 
+use std::fmt;
+
 pub enum Token {
     Name (String),
     Int (i32),
@@ -8,8 +10,8 @@ pub enum Token {
     Char (char),    
     OpenParen,
     CloseParen,
-    OpenBracket,
-    CloseBracket,
+    OpenSquare,
+    CloseSquare,
     OpenAngle,
     CloseAngle,
     TernaryIf,
@@ -21,7 +23,13 @@ pub enum Token {
     Operator (String),
 }
 
+impl std::fmt::Display for Token {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "")
+    }
+}
+
 #[allow(unused_variables)]
-pub fn tokenize(tokens: &mut String) -> Vec<Vec<Token>> {
-    vec![Vec::new()]
+pub fn tokenize(tokens: &mut String) -> Vec<Token> {
+    Vec::new()
 }

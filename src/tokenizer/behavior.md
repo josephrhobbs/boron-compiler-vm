@@ -41,6 +41,7 @@ The following primitive data types are available in Boron.
 `char`: 8-bit character
 `bool`: boolean value (`True` or `False`)
 `list<T>`: list of type `T` (heap-allocated, of arbitrary length)
+`null`: null data type (used for functions that return nothing)
 
 ### Derived Types
 
@@ -74,12 +75,12 @@ More information coming soon!
 
 ```
 // Define a variable
-x (int) = 3;
-pi (float) = 3.1415;
-mystr (str) = "Hello, world!";
-letter (char) = 'a';
-mybool (bool) = True;
-some_numbers (list<int>) = <1, 2, 3, 4>;
+x (int): 3;
+pi (float): 3.1415;
+mystr (str): "Hello, world!";
+letter (char): 'a';
+mybool (bool): True;
+some_numbers (list<int>): [1, 2, 3, 4];
 ```
 
 Note the following:
@@ -91,18 +92,18 @@ Note the following:
 
 ```
 // Define a function
-does_nothing {
+does_nothing :: -> null {
     // Do nothing
 }
 
 // Define a function that accepts arguments
-print_numbers :: a (int), b (int) {
+print_numbers :: a (int), b (int) -> null {
     print("{}", a);
     print("{}", b);
 }
 
 // Define a function that returns a result
-five -> int {
+five :: -> int {
     return 5;
 }
 
@@ -118,8 +119,8 @@ does_nothing();
 print_numbers(1, 2);
 
 // Call five
-my_number = five();
+my_number (int): five();
 
 // Call add
-sum = add(3, 4);
+sum (int): add(3, 4);
 ```
