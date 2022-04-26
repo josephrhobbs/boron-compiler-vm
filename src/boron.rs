@@ -12,7 +12,7 @@ use boron::assm::assembler;
 use boron::vm::{memory, interpreter};
 use boron::util::error::{BoronError, throw};
 
-const VERSION: &str = "0.5.2";
+const VERSION: &str = "0.6.0";
 const RELEASE: &str = "alpha";
 const AUTHOR: &str = "Developed by Joseph Hobbs (https://github.com/hobbsbros/)";
 
