@@ -12,7 +12,7 @@ use boron::assm::assembler;
 use boron::vm::{memory, interpreter};
 use boron::util::error::{BoronError, throw};
 
-const VERSION: &str = "0.5.0";
+const VERSION: &str = "0.5.2";
 const RELEASE: &str = "alpha";
 const AUTHOR: &str = "Developed by Joseph Hobbs (https://github.com/hobbsbros/)";
 
@@ -142,7 +142,7 @@ fn help() {
 
         "USAGE:\n\tboron [SUBCOMMAND] [FILENAME]",
 
-        "AVAILABLE SUBCOMMDNS:\
+        "AVAILABLE SUBCOMMANDS:\
         \n\tcompile: compile Boron source code to Boron executable bytecode\
         \n\tassemble: assemble Boron assembly language to Boron executable bytecode\
         \n\texec: execute Boron bytecode on the Boron virtual machine\
