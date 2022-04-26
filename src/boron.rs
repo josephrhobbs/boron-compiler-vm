@@ -12,7 +12,7 @@ use boron::assm::assembler;
 use boron::vm::{memory, interpreter};
 use boron::util::error::{BoronError, throw};
 
-const VERSION: &str = "0.5.2";
+const VERSION: &str = "0.5.3";
 const RELEASE: &str = "alpha";
 const AUTHOR: &str = "Developed by Joseph Hobbs (https://github.com/hobbsbros/)";
 
@@ -149,7 +149,7 @@ fn help() {
         \n\tversion: get Boron version information\
         \n\thelp: display this help menu",
 
-        "Running `boron` with no subcommands will display this help menu."
+        "\n\nRunning `boron` with no subcommands will display this help menu."
     );
 }
 
